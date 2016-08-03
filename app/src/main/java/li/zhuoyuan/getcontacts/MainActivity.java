@@ -1,0 +1,24 @@
+package li.zhuoyuan.getcontacts;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ListView;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    public static final String TAG = MainActivity.class.getName();
+    private ListView listView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        listView = (ListView) findViewById(R.id.list_item);
+        List<Contact> list = GetPeople.getInstance().getpeople(MainActivity.this);
+        listView.setAdapter(new MyAdapter(this, list));
+        Log.i(TAG, "onCreate: " + list.toString());
+    }
+
+}
