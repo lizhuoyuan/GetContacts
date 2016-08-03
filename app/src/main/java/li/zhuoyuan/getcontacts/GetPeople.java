@@ -11,7 +11,6 @@ import android.provider.ContactsContract;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,17 +36,19 @@ public class GetPeople {
         String str[] = {ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.SORT_KEY_PRIMARY,
                 ContactsContract.CommonDataKinds.Phone.PHOTO_ID};
         //得到ContentResolver ，得到电话本中开始项的光标
         ContentResolver contentResolver = context.getContentResolver();
         Cursor cursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                str, null, null, null);
+                str, null, null, ContactsContract.CommonDataKinds.Phone.SORT_KEY_PRIMARY);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 long contanct_id = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
                 long photo_id = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID));
+                String sortkey = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.SORT_KEY_PRIMARY));
                 //查找该联系人的email信息
                 String email = null;
                 Cursor emails = context.getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,
@@ -68,13 +69,11 @@ public class GetPeople {
                     InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contentResolver, uri);
                     photo = BitmapFactory.decodeStream(inputStream);
                 }
-                list.add(new Contact(name, number, email, photo));
+                list.add(new Contact(name, number, email, photo, sortkey));
                 emails.close();
             }
         }
         cursor.close();
-        SortComparator comparator = new SortComparator();
-        Collections.sort(list, comparator);
         return list;
     }
 

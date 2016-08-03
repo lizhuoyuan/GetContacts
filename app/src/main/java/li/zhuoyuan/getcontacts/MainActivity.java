@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by 帅裂苍穹的卓原 on 2016/8/3 15:58 .
  * email: zhuoyuan93@gmail.com
+ * 获取通讯录的联系人姓名，电话，email ，头像 并根据姓名首字母排序
  */
 
 public class MainActivity extends AppCompatActivity {

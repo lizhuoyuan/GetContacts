@@ -11,12 +11,33 @@ public class Contact {
     private String number;
     private String email;
     private Bitmap bitmap;
+    private String sortkey;
 
-    public Contact(String name, String number, String email, Bitmap bitmap) {
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", email='" + email + '\'' +
+                ", bitmap=" + bitmap +
+                ", sortkey='" + sortkey + '\'' +
+                '}';
+    }
+
+    public String getSortkey() {
+        return sortkey;
+    }
+
+    public void setSortkey(String sortkey) {
+        this.sortkey = sortkey;
+    }
+
+    public Contact(String name, String number, String email, Bitmap bitmap, String sortkey) {
         this.name = name;
         this.number = number;
         this.bitmap = bitmap;
         this.email = email;
+        this.sortkey = sortkey;
     }
 
     public String getName() {
@@ -51,13 +72,4 @@ public class Contact {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", email='" + email + '\'' +
-                ", bitmap=" + bitmap +
-                '}';
-    }
 }
