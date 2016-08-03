@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,6 +73,8 @@ public class GetPeople {
             }
         }
         cursor.close();
+        SortComparator comparator = new SortComparator();
+        Collections.sort(list, comparator);
         return list;
     }
 
