@@ -12,11 +12,6 @@ public class Contact {
     private String email;
     private Bitmap bitmap;
 
-    public Contact(String name, String number) {
-        this.name = name;
-        this.number = number;
-    }
-
     public Contact(String name, String number, String email, Bitmap bitmap) {
         this.name = name;
         this.number = number;
